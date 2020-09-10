@@ -1,6 +1,6 @@
 import { Injectable, NgModule } from "@angular/core";
 import { TestBed } from '@angular/core/testing';
-import { MockModule, MockProvider } from 'ng-mocks';
+import { MockModule, MockProvider, ngMocks } from 'ng-mocks';
 import { ngMocksUniverse } from 'ng-mocks/dist/lib/common/ng-mocks-universe';
 
 describe('for services inside a module', () => {
@@ -31,6 +31,10 @@ describe('for services inside a module', () => {
         });
 
         exampleProvider = TestBed.inject(ExampleProvider);
+    });
+
+    afterEach(() => {
+        ngMocks.flushTestBed();
     });
 
     it('should not be able to pass state between tests (setup phase)', () => {
@@ -71,6 +75,10 @@ describe('for services mocked directly', () => {
         });
 
         exampleProvider = TestBed.inject(ExampleProvider);
+    });
+
+    afterEach(() => {
+        ngMocks.flushTestBed();
     });
 
     it('should not be able to pass state between tests (setup phase)', () => {
