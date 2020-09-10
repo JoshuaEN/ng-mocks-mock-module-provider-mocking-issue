@@ -1,6 +1,6 @@
 import { Injectable, NgModule } from "@angular/core";
 import { TestBed } from '@angular/core/testing';
-import { MockModule, MockProvider } from 'ng-mocks';
+import { MockModule, MockProvider, ngMocks, MockBuilder, MockRender } from 'ng-mocks';
 import { ngMocksUniverse } from 'ng-mocks/dist/lib/common/ng-mocks-universe';
 
 describe('for services inside a module', () => {
@@ -26,9 +26,7 @@ describe('for services inside a module', () => {
     });
 
     beforeEach(() => {
-        TestBed.configureTestingModule({
-            imports: [MockModule(ExampleModule)],
-        });
+        TestBed.configureTestingModule(MockBuilder().mock(ExampleModule).build());
 
         exampleProvider = TestBed.inject(ExampleProvider);
     });
@@ -66,9 +64,7 @@ describe('for services mocked directly', () => {
     });
 
     beforeEach(() => {
-        TestBed.configureTestingModule({
-            providers: [MockProvider(ExampleProvider)],
-        });
+        TestBed.configureTestingModule(MockBuilder().mock(ExampleProvider).build());
 
         exampleProvider = TestBed.inject(ExampleProvider);
     });
