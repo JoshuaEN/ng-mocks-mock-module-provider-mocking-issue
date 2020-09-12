@@ -14,6 +14,7 @@ describe('for services inside a module', () => {
     class ExampleModule {}
 
     let exampleProvider: ExampleProvider;
+    let exampleProviderFromSetupPhase: ExampleProvider;
 
     // Test order is important, since we are testing side effects between tests. A random order would result in false positives.
     // To detect these, the setup phase sets this flag, and the validation phase checks that it was set.
@@ -38,6 +39,7 @@ describe('for services inside a module', () => {
     });
 
     it('should not be able to pass state between tests (setup phase)', () => {
+        exampleProviderFromSetupPhase = exampleProvider;
         expect(exampleProvider.a).toBeUndefined();
 
         // Set a property on the class to see if it carries over to the next test.
@@ -47,6 +49,7 @@ describe('for services inside a module', () => {
     });
 
     it('should not be able to pass state between tests (validation phase)', () => {
+        expect(exampleProvider === exampleProviderFromSetupPhase).toBeFalse();
         expect(testOrderValidationFlag).toBeTrue();
         expect(exampleProvider.a).toBeUndefined();
     });
@@ -59,6 +62,7 @@ describe('for services mocked directly', () => {
     }
 
     let exampleProvider: ExampleProvider;
+    let exampleProviderFromSetupPhase: ExampleProvider;
 
     // Test order is important, since we are testing side effects between tests. A random order would result in false positives.
     // To detect these, the setup phase sets this flag, and the validation phase checks that it was set.
@@ -82,6 +86,7 @@ describe('for services mocked directly', () => {
     });
 
     it('should not be able to pass state between tests (setup phase)', () => {
+        exampleProviderFromSetupPhase = exampleProvider;
         expect(exampleProvider.a).toBeUndefined();
 
         // Set a property on the class to see if it carries over to the next test.
@@ -91,6 +96,7 @@ describe('for services mocked directly', () => {
     });
 
     it('should not be able to pass state between tests (validation phase)', () => {
+        expect(exampleProvider === exampleProviderFromSetupPhase).toBeFalse();
         expect(testOrderValidationFlag).toBeTrue();
         expect(exampleProvider.a).toBeUndefined();
     });
