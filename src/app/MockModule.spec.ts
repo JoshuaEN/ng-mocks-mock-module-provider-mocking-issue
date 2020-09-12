@@ -6,7 +6,7 @@ import { ngMocksUniverse } from 'ng-mocks/dist/lib/common/ng-mocks-universe';
 describe('for services inside a module', () => {
     @Injectable()
     class ExampleProvider {
-      a = 5;
+      a;
     }
     @NgModule({
       providers: [ExampleProvider],
@@ -28,7 +28,7 @@ describe('for services inside a module', () => {
 
     beforeEach(() => {
         TestBed.configureTestingModule({
-            imports: [MockModule(ExampleModule)],
+            imports: [ExampleModule],
         });
 
         exampleProvider = TestBed.inject(ExampleProvider);
@@ -58,7 +58,7 @@ describe('for services inside a module', () => {
 describe('for services mocked directly', () => {
     @Injectable()
     class ExampleProvider {
-      a = 5;
+      a;
     }
 
     let exampleProvider: ExampleProvider;
@@ -75,7 +75,7 @@ describe('for services mocked directly', () => {
 
     beforeEach(() => {
         TestBed.configureTestingModule({
-            providers: [MockProvider(ExampleProvider)],
+            providers: [ExampleProvider],
         });
 
         exampleProvider = TestBed.inject(ExampleProvider);
